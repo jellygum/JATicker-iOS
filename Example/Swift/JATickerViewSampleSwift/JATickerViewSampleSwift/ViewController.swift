@@ -33,6 +33,7 @@ class ViewController: UIViewController, JATickerViewDelegate {
 
         ticker.delegate = self
         ticker.startTicker()
+        
     }
 
     func tickerView(tickerView: JATickerView,
@@ -61,20 +62,20 @@ class ViewController: UIViewController, JATickerViewDelegate {
         guard let colorSwitch = useColorsSwitch else {
             return nil
         }
-        if !colorSwitch.on {
+        if !colorSwitch.isOn {
             return nil
         }
         switch (xCoord % 20) / 4 {
         case 0:
-            return UIImage.jaTickerViewDotImage(.Blue)
+            return UIImage.jaTickerViewDotImage(color: .Blue)
         case 1:
-            return UIImage.jaTickerViewDotImage(.Orange)
+            return UIImage.jaTickerViewDotImage(color: .Orange)
         case 2:
-            return UIImage.jaTickerViewDotImage(.Red)
+            return UIImage.jaTickerViewDotImage(color: .Red)
         case 3:
-            return UIImage.jaTickerViewDotImage(.Yellow)
+            return UIImage.jaTickerViewDotImage(color: .Yellow)
         default:
-            return UIImage.jaTickerViewDotImage(.Green)
+            return UIImage.jaTickerViewDotImage(color: .Green)
         }
     }
 
@@ -94,7 +95,7 @@ class ViewController: UIViewController, JATickerViewDelegate {
     func tickerView(tickerView: JATickerView,
                     definitionForCharacter character: unichar) -> JATickerChar? {
         NSLog("definitionForCharacter called for " + String(character))
-        if character == "<".characterAtIndex(0) {
+        if String(character) == "<" {
             return JATickerChar(ASCIIString:
                         "   .." +
                         " ..  " +
@@ -102,7 +103,7 @@ class ViewController: UIViewController, JATickerViewDelegate {
                         ".    " +
                         " ..  " +
                         "   ..")
-        } else if character == ">".characterAtIndex(0) {
+        } else if String(character) == ">" {
             return JATickerChar(ASCIIString:
                         "..   " +
                         "  .. " +
@@ -121,20 +122,20 @@ class ViewController: UIViewController, JATickerViewDelegate {
         self.position?.text = "Ticker position: " + String(position)
     }
 
-    @IBAction func onIsTickerOnChanged(sender: UISwitch) {
+    @IBAction func onIsTickerOnChanged(_ sender: UISwitch) {
         guard let onSwitch = self.isOnSwitch,
               let ticker = self.tickerView else {
             return
         }
 
-        if onSwitch.on {
+        if onSwitch.isOn {
             ticker.startTicker()
         } else {
             ticker.stopTicker()
         }
     }
 
-    @IBAction func onUseColorsChanged(sender: UISwitch) {
+    @IBAction func onUseColorsChanged(_ sender: UISwitch) {
         guard let ticker = self.tickerView else {
             return
         }
@@ -144,7 +145,7 @@ class ViewController: UIViewController, JATickerViewDelegate {
     private let kTickerMaxSpeedSecs: Float = 0.01
     private let kTickerMinSpeedSecs: Float = 0.8
 
-    @IBAction func onSpeedSliderChanged(sender: UISlider) {
+    @IBAction func onSpeedSliderChanged(_ sender: UISlider) {
         guard let ticker = self.tickerView,
               let slider = self.slider else {
             return
@@ -156,13 +157,13 @@ class ViewController: UIViewController, JATickerViewDelegate {
                 slider.value*(kTickerMaxSpeedSecs-kTickerMinSpeedSecs))
     }
 
-    @IBAction func onRestartTickerButtonTapped(sender: UIButton) {
+    @IBAction func onRestartTickerButtonTapped(_ sender: UIButton) {
         guard let ticker = self.tickerView,
             let isOn = self.isOnSwitch else {
                 return
         }
         ticker.clearAllDataFromTicker()
         ticker.startTicker()
-        isOn.on = ticker.isStarted
+        isOn.isOn = ticker.isStarted
     }
 }

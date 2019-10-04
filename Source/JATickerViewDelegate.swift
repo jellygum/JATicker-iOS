@@ -33,7 +33,7 @@ import UIKit
                                   looking up what ticker data to supply next.
      - returns: Characters to show on the ticker next on the right, in a forward scroll
      */
-    optional func tickerView(tickerView: JATickerView,
+    @objc optional func tickerView(tickerView: JATickerView,
                              tickerDataAtEnd currentLength: UInt) -> String
 
     /**
@@ -47,8 +47,8 @@ import UIKit
      - parameter imageForLightOnAtX: X coordinate of the ticker starting from 0 on the left
      - parameter andY: Y coordinate of the ticker starting from 0 on the top
      - returns: Image, or nil if the default should be used
-     */
-    optional func tickerView(tickerView: JATickerView,
+ */
+    @objc optional func tickerView(tickerView: JATickerView,
                              imageForLightOnAtX xCoord: UInt, andY yCoord: UInt) -> UIImage?
 
     /**
@@ -62,8 +62,8 @@ import UIKit
      - parameter imageForLightOnAtX: X coordinate of the ticker starting from 0 on the left
      - parameter andY: Y coordinate of the ticker starting from 0 on the top
      - returns: Image, or nil if the default should be used
-     */
-    optional func tickerView(tickerView: JATickerView,
+ */
+    @objc optional func tickerView(tickerView: JATickerView,
                              imageForLightOffAtX xCoord: UInt,
                              andY yCoord: UInt) -> UIImage?
 
@@ -76,9 +76,9 @@ import UIKit
 
      - parameter tickerView: Active ticker view
      - parameter character: Character to digitize
-     - returns: Digitized character definition, or nil if the client does not have one
+ - returns: Digitized character definition, or nil if the client does not hav@objc e one
      */
-    optional func tickerView(tickerView: JATickerView,
+    @objc optional func tickerView(tickerView: JATickerView,
                              definitionForCharacter character: unichar) -> JATickerChar?
 
     /**
@@ -89,8 +89,9 @@ import UIKit
      - parameter tickerView: Active ticker view
      - parameter tickerReachedPosition: Index of the leftmost character currently
                                         displayed on the ticker, from the characters supplied
-                                        so far to the ticker by the client.
-     */
-    optional func tickerView(tickerView: JATickerView,
+ so far to the ticker by @objc the client.*/
+    @objc optional func tickerView(tickerView: JATickerView,
                              tickerReachedPosition position: UInt)
 }
+
+ 

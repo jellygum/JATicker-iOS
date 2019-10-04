@@ -58,16 +58,16 @@ class JATickerDotRepresentation {
         var currentDotOffset = 0
         var numberNonMetadataCharacters: UInt = 0
         for i in 0..<state.tickerStr.characters.count {
-            let thisDotOffset = utils.dotWidthXForCharacterAtIndex(state.tickerStr, charIndex: i)
-            let thisChar = utils.lookupDigitizedCharAtIndex(state.tickerStr, charIndex: i)
-            if !utils.isMetadataCharAtIndex(state.tickerStr, charIndex: i) {
+            let thisDotOffset = utils.dotWidthXForCharacterAtIndex(tickerStr: state.tickerStr, charIndex: i)
+            let thisChar = utils.lookupDigitizedCharAtIndex(tickerStr: state.tickerStr, charIndex: i)
+            if !utils.isMetadataCharAtIndex(tickerStr: state.tickerStr, charIndex: i) {
                 numberNonMetadataCharacters += 1
             }
             for j in 0..<thisDotOffset {
                 if currentDotOffset >= state.dotScrollX {
                     if grid.count == 0
                         && j == 0
-                        && !utils.isMetadataCharAtIndex(state.tickerStr, charIndex: i) {
+                        && !utils.isMetadataCharAtIndex(tickerStr: state.tickerStr, charIndex: i) {
                         // Report that the ticker has just now reached this character
                         reportableDataLength = numberNonMetadataCharacters
                     }

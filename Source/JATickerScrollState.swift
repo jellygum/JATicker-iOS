@@ -41,8 +41,8 @@ class JATickerScrollState {
     init(tickerStr: String, dotScrollX: Int, utils: JATickerUtils) {
         self.utils = utils
         self.dotScrollX = dotScrollX
-        self.tickerStr = utils.trimAndConvertTickerStr(tickerStr)
-        totalDotWidth = utils.totalDotWidthForTickerStr(self.tickerStr)
+        self.tickerStr = utils.trimAndConvertTickerStr(tickerStr: tickerStr)
+        totalDotWidth = utils.totalDotWidthForTickerStr(tickerStr: self.tickerStr)
     }
 
     /**

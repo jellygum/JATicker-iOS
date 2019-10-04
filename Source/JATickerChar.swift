@@ -39,9 +39,8 @@ import Foundation
     /**
      2D array of booleans representing the dots
      */
-    private var dots: [[Bool]] = [[Bool]](count: JATickerChar.kDotCharWidth, repeatedValue:
-        [Bool](count: JATickerChar.kDotCharHeight, repeatedValue:false))
-
+    private var dots: [[Bool]] = [[Bool]](repeating: [Bool](repeating: false, count: JATickerChar.kDotCharHeight), count: JATickerChar.kDotCharWidth)
+    
     // MARK: - Initialization
 
     /**
@@ -61,8 +60,7 @@ import Foundation
 
         for xCoord in (0..<dots.count) {
             for yCoord in (0..<dots[xCoord].count) {
-                let nextIndex = string.startIndex.advancedBy(
-                                    yCoord*JATickerChar.kDotCharWidth + xCoord)
+                let nextIndex = string.index(string.startIndex, offsetBy: yCoord*JATickerChar.kDotCharWidth + xCoord)
                 let dotCharacter = string[nextIndex]
                 if dotCharacter == "." {
                     self.setDot(xCoord: xCoord, yCoord: yCoord)

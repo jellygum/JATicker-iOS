@@ -54,10 +54,10 @@ class JATickerUtils {
         }
 
         // Read the symbols file
-        if let fileContents = NSBundle.jaTickerContentsOfFile("symbols", type: "txt") {
+        if let fileContents = Bundle.jaTickerContentsOfFile(name: "symbols", type: "txt") {
             let allLinedStrings =
-                fileContents.componentsSeparatedByCharactersInSet(
-                    NSCharacterSet.newlineCharacterSet())
+                fileContents.components(separatedBy:
+                    NSCharacterSet.newlines)
 
             var nextChar = JATickerChar()
             var charLineOffset = 0
@@ -74,7 +74,8 @@ class JATickerUtils {
                     charLineOffset = 0
                 } else if charLineOffset <= 5 {
                     for j in 0..<line.characters.count {
-                        if line[line.startIndex.advancedBy(j)] == "." {
+                        
+                        if line[line.index(line.startIndex, offsetBy: j)] == "." {
                             nextChar.setDot(xCoord: j, yCoord: charLineOffset)
                         }
                     }
@@ -91,11 +92,8 @@ class JATickerUtils {
     - returns: Normalized ticker string
     */
     func trimAndConvertTickerStr(tickerStr: String) -> String {
-        return tickerStr.stringByReplacingOccurrencesOfString(
-            " ",
-            withString: "_").stringByReplacingOccurrencesOfString(
-                ".",
-                withString: "*")
+        return tickerStr.replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ".",
+                with: "*")
     }
 
     /**
@@ -106,12 +104,15 @@ class JATickerUtils {
     - returns: Total number of required dots horizontally required
     */
     func totalDotWidthForTickerStr(tickerStr: String) -> Int {
-        var nextChar: String? = nil
+//        var nextChar: String? = nil
         var totalLength = 0
         for charIndex in 0..<tickerStr.characters.count {
-            let startIndex = tickerStr.startIndex.advancedBy(charIndex)
-            let endIndex = tickerStr.startIndex.advancedBy(charIndex+1)
-            nextChar = tickerStr.substringWithRange(startIndex..<endIndex)
+            let startIndex = tickerStr.index(tickerStr.startIndex, offsetBy: charIndex)
+            let endIndex = tickerStr.index(tickerStr.startIndex, offsetBy: charIndex+1)
+            
+            
+//            let endIndex = tickerStr.startIndex.advancedBy(charIndex+1)
+            var nextChar = String( tickerStr[startIndex..<endIndex])//[startIndex..<endIndex]
             if nextChar == "*" || nextChar == "|" {
                 totalLength += 1
             } else {
@@ -134,9 +135,13 @@ class JATickerUtils {
     func dotWidthXForCharacterAtIndex(tickerStr: String, charIndex: Int) -> Int {
         var nextChar: String? = nil
         if tickerStr.characters.count > charIndex {
-            let startIndex = tickerStr.startIndex.advancedBy(charIndex)
-            let endIndex = tickerStr.startIndex.advancedBy(charIndex+1)
-            nextChar = tickerStr.substringWithRange(startIndex..<endIndex)
+            let startIndex = tickerStr.index(tickerStr.startIndex, offsetBy:  charIndex)
+            let endIndex = tickerStr.index( tickerStr.startIndex, offsetBy: charIndex)
+            let nextChar = String( tickerStr[startIndex..<endIndex])
+//
+//            let startIndex = tickerStr.startIndex.advancedBy(charIndex)
+//            let endIndex = tickerStr.startIndex.advancedBy(charIndex+1)
+//            nextChar = tickerStr.substringWithRange(startIndex..<endIndex)
             if nextChar == "*" || nextChar == "|" {
                 return 1
             } else {
@@ -157,9 +162,10 @@ class JATickerUtils {
     */
     func isMetadataCharAtIndex(tickerStr: String, charIndex: Int) -> Bool {
         if tickerStr.characters.count > charIndex {
-            let startIndex = tickerStr.startIndex.advancedBy(charIndex)
-            let endIndex = tickerStr.startIndex.advancedBy(charIndex+1)
-            let nextChar = tickerStr.substringWithRange(startIndex..<endIndex)
+            let startIndex = tickerStr.index(tickerStr.startIndex, offsetBy:  charIndex)
+            let endIndex = tickerStr.index( tickerStr.startIndex, offsetBy: charIndex)
+            let nextChar = String( tickerStr[startIndex..<endIndex])
+//            let nextChar = tickerStr.substringWithRange(startIndex..<endIndex)
             return nextChar == "|"
         }
         return false
@@ -174,10 +180,13 @@ class JATickerUtils {
     */
     func lookupDigitizedCharAtIndex(tickerStr: String, charIndex: Int) -> JATickerChar? {
         if tickerStr.characters.count > charIndex {
-            let startIndex = tickerStr.startIndex.advancedBy(charIndex)
-            let endIndex = tickerStr.startIndex.advancedBy(charIndex+1)
-            let nextChar = tickerStr.substringWithRange(startIndex..<endIndex)
-            return lookupDigitizedChar(nextChar)
+            let startIndex = tickerStr.index(tickerStr.startIndex, offsetBy:  charIndex)
+            let endIndex = tickerStr.index( tickerStr.startIndex, offsetBy: charIndex)
+            let nextChar = String( tickerStr[startIndex..<endIndex])
+
+//            let startIndex = ticke
+            
+            return lookupDigitizedChar(nextChar: nextChar)
         }
         return nil
     }
@@ -202,7 +211,7 @@ class JATickerUtils {
             // already been asked
             if !undefinedChars.contains(nextChar) && nextChar != "_" && nextChar != " " {
                 chr = tickerDelegate.tickerView?(
-                            tickerView,
+                    tickerView: tickerView,
                             definitionForCharacter: nextChar.utf16.first!)
             }
         }
@@ -222,7 +231,8 @@ class JATickerUtils {
     - returns: The ticker string with metadata
     */
     func formatTickerStringWithMetadata(tickerStr: String) -> String {
-        let input = tickerStr.uppercaseString
+        let input = tickerStr.uppercased()
+//        rcaseString
         let length = input.characters.count
         var index = 0
         var res = ""
@@ -252,18 +262,18 @@ class JATickerUtils {
         }
         var image: UIImage? = nil
         if isOn {
-            image = delegate.tickerView?(tickerView,
+            image = delegate.tickerView?(tickerView: tickerView,
                                          imageForLightOnAtX: UInt(xCoord),
                                          andY: UInt(yCoord))
             if image == nil {
-                image = UIImage.jaTickerViewDotImage(JATickerDotColor.DefaultOn)
+                image = UIImage.jaTickerViewDotImage(color: JATickerDotColor.DefaultOn)
             }
         } else {
-            image = delegate.tickerView?(tickerView,
+            image = delegate.tickerView?(tickerView: tickerView,
                                          imageForLightOffAtX: UInt(xCoord),
                                          andY: UInt(yCoord))
             if image == nil {
-                image = UIImage.jaTickerViewDotImage(JATickerDotColor.DefaultOff)
+                image = UIImage.jaTickerViewDotImage(color: JATickerDotColor.DefaultOff)
             }
         }
         return image
