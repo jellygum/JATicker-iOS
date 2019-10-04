@@ -106,13 +106,13 @@ class JATickerUtils {
     func totalDotWidthForTickerStr(tickerStr: String) -> Int {
 //        var nextChar: String? = nil
         var totalLength = 0
-        for charIndex in 0..<tickerStr.characters.count {
+        for charIndex in 0..<max(0, tickerStr.characters.count-1) {
             let startIndex = tickerStr.index(tickerStr.startIndex, offsetBy: charIndex)
             let endIndex = tickerStr.index(tickerStr.startIndex, offsetBy: charIndex+1)
             
             
 //            let endIndex = tickerStr.startIndex.advancedBy(charIndex+1)
-            var nextChar = String( tickerStr[startIndex..<endIndex])//[startIndex..<endIndex]
+            var nextChar = String(tickerStr[startIndex...endIndex])//[startIndex..<endIndex]
             if nextChar == "*" || nextChar == "|" {
                 totalLength += 1
             } else {
@@ -137,7 +137,7 @@ class JATickerUtils {
         if tickerStr.characters.count > charIndex {
             let startIndex = tickerStr.index(tickerStr.startIndex, offsetBy:  charIndex)
             let endIndex = tickerStr.index( tickerStr.startIndex, offsetBy: charIndex)
-            let nextChar = String( tickerStr[startIndex..<endIndex])
+            let nextChar = String( tickerStr[startIndex...endIndex])
 //
 //            let startIndex = tickerStr.startIndex.advancedBy(charIndex)
 //            let endIndex = tickerStr.startIndex.advancedBy(charIndex+1)
@@ -164,7 +164,7 @@ class JATickerUtils {
         if tickerStr.characters.count > charIndex {
             let startIndex = tickerStr.index(tickerStr.startIndex, offsetBy:  charIndex)
             let endIndex = tickerStr.index( tickerStr.startIndex, offsetBy: charIndex)
-            let nextChar = String( tickerStr[startIndex..<endIndex])
+            let nextChar = String( tickerStr[startIndex...endIndex])
 //            let nextChar = tickerStr.substringWithRange(startIndex..<endIndex)
             return nextChar == "|"
         }
@@ -180,9 +180,9 @@ class JATickerUtils {
     */
     func lookupDigitizedCharAtIndex(tickerStr: String, charIndex: Int) -> JATickerChar? {
         if tickerStr.characters.count > charIndex {
-            let startIndex = tickerStr.index(tickerStr.startIndex, offsetBy:  charIndex)
-            let endIndex = tickerStr.index( tickerStr.startIndex, offsetBy: charIndex)
-            let nextChar = String( tickerStr[startIndex..<endIndex])
+            let startIndex = tickerStr.index(tickerStr.startIndex, offsetBy: charIndex)
+            let endIndex = tickerStr.index(tickerStr.startIndex, offsetBy: charIndex)
+            let nextChar = String( tickerStr[startIndex...endIndex])
 
 //            let startIndex = ticke
             
