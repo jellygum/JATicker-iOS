@@ -48,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		65426A2C234DB2B60079FA39 /* JATickerViewSampleSwift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JATickerViewSampleSwift.entitlements; sourceTree = "<group>"; };
 		6991E0591CFFC3F600A43A9E /* JATickerViewSampleSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JATickerViewSampleSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6991E05C1CFFC3F600A43A9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6991E05E1CFFC3F600A43A9E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 		6991E05B1CFFC3F600A43A9E /* JATickerViewSampleSwift */ = {
 			isa = PBXGroup;
 			children = (
+				65426A2C234DB2B60079FA39 /* JATickerViewSampleSwift.entitlements */,
 				6991E05C1CFFC3F600A43A9E /* AppDelegate.swift */,
 				6991E05E1CFFC3F600A43A9E /* ViewController.swift */,
 				6991E0601CFFC3F600A43A9E /* Main.storyboard */,
@@ -321,11 +323,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JATickerViewSampleSwift/JATickerViewSampleSwift.entitlements;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = LXJRWZT546;
 				INFOPLIST_FILE = JATickerViewSampleSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jaysapps.JATickerViewSampleSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -335,11 +340,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JATickerViewSampleSwift/JATickerViewSampleSwift.entitlements;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = LXJRWZT546;
 				INFOPLIST_FILE = JATickerViewSampleSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jaysapps.JATickerViewSampleSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
